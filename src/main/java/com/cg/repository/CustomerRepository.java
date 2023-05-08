@@ -31,4 +31,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     List<Customer> findAllByFullNameLikeOrEmailLikeOrPhoneLike(String fullName, String email, String phone);
 
+    Boolean existsByEmail(String email);
+
 }

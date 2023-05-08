@@ -24,6 +24,8 @@ public interface ICustomerService {
 
     Optional<Customer> findById(Long id);
 
+    Boolean existsByEmail(String email);
+
     Customer save(Customer customer);
 
     Customer create(Customer customer);

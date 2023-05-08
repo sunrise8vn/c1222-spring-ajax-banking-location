@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "location_region")
+@Accessors(chain = true)
 public class LocationRegion {
 
     @Id
@@ -67,6 +69,5 @@ public class LocationRegion {
             .setWardName(wardName)
             .setAddress(address)
             ;
-
     }
 }

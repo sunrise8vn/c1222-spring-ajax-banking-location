@@ -69,6 +69,11 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    public Boolean existsByEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
+    @Override
     public Customer create(Customer customer) {
 
         LocationRegion locationRegion = customer.getLocationRegion();

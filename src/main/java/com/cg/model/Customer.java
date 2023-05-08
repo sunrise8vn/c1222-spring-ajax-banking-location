@@ -1,12 +1,12 @@
 package com.cg.model;
 
+import com.cg.model.dto.CustomerCreateResDTO;
 import com.cg.model.dto.CustomerDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +19,8 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "customers")
-public class Customer implements Validator {
+@Accessors(chain = true)
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,7 @@ public class Customer implements Validator {
     private String fullName;
 
 //    @Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = "Email chưa đúng định dạng")
+    @Column(unique = true, nullable = false)
     private String email;
     private String phone;
 
@@ -54,7 +56,17 @@ public class Customer implements Validator {
             .setBalance(balance)
             .setLocationRegion(locationRegion.toLocationRegionDTO())
             ;
+    }
 
+    public CustomerCreateResDTO toCustomerCreateResDTO() {
+        return new CustomerCreateResDTO()
+                .setId(id)
+                .setFullName(fullName)
+                .setEmail(email)
+                .setPhone(phone)
+                .setBalance(balance)
+                .setLocationRegion(locationRegion.toLocationRegionDTO())
+                ;
     }
 
 
@@ -68,27 +80,6 @@ public class Customer implements Validator {
                 ", locationRegion=" + locationRegion +
                 ", balance=" + balance +
                 '}';
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return Customer.class.isAssignableFrom(clazz);
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        Customer customer = (Customer) target;
-
-        String fullName = customer.getFullName();
-        String email = customer.getEmail();
-
-        if (fullName.length() == 0) {
-            errors.rejectValue("fullName", "fullName.length");
-        }
-
-        if (!email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
-            errors.rejectValue("email", "email.match");
-        }
     }
 
 }

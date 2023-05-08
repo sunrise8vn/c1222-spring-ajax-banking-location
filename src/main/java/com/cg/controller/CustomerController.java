@@ -92,7 +92,7 @@ public class CustomerController {
     @PostMapping("/create")
     public String create(Model model, @ModelAttribute("customer") Customer customer, BindingResult bindingResult) {
 
-        new Customer().validate(customer, bindingResult);
+//        new Customer().validate(customer, bindingResult);
 
         if (bindingResult.hasFieldErrors()) {
             model.addAttribute("error", true);
