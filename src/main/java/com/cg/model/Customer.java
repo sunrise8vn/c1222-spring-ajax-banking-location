@@ -2,6 +2,7 @@ package com.cg.model;
 
 import com.cg.model.dto.CustomerCreateResDTO;
 import com.cg.model.dto.CustomerDTO;
+import com.cg.model.dto.CustomerUpdateReqDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,7 @@ public class Customer {
     @JoinColumn(name = "location_region_id", referencedColumnName = "id", nullable = false)
     private LocationRegion locationRegion;
 
-    @Column(precision = 10, scale = 0, nullable = false)
+    @Column(precision = 10, scale = 0, nullable = false, updatable = false)
     private BigDecimal balance;
 
     @OneToMany(fetch = FetchType.EAGER)
